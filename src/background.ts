@@ -5,19 +5,8 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
 import { connectDataBase, operate } from "@/server/server";
-const ipcMain = require("electron").ipcMain;
+import "@/server/ipcListener.ts";
 connectDataBase();
-ipcMain.on("data-message", (event, arg) => {
-  operate(arg).then((res) => {
-    event.reply("accept-data", res);
-  });
-});
-
-ipcMain.on("init_data", (event, arg) => {
-  operate(arg).then((res) => {
-    event.reply("accept-list", res);
-  });
-});
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([

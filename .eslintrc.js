@@ -16,8 +16,10 @@ module.exports = {
   rules: {
     "vue/no-mutating-props":"off",
     "@typescript-eslint/no-var-requires": "off",
+    "vue/no-unused-components":"off",
     "@typescript-eslint/explicit-module-boundary-types":"off",
     "@typescript-eslint/no-unused-vars":"off",
+    "@typescript-eslint/no-empty-function":"off",
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
   },
