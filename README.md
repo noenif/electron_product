@@ -1,1 +1,11 @@
-如果你想要控制自己的情欲,但又没有办法,做了个简单的mongodb 的electron   ,每天打开,查看效果
+spring 开发过程中
+
+
+1.更改数据源 
+
+2.快速生成 表和mybatis 的配置
+
+3.生成 controller    vo   entity 之间的名字追踪,最终要实现request的自动生成
+
+
+.....接着补充
