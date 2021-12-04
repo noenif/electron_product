@@ -6,8 +6,8 @@
           <component
             :is="component"
             :ref="focusRef.value === prop ? 'focusRef' : null"
-            @change="handleChange"
-            v-model.trim="form[prop]"
+            v-model:value="form[prop]"
+            v-model:checked="form[prop]"
             v-bind="componentProps"
             v-on="componentMethods"
           >
@@ -135,15 +135,7 @@ export default {
       this.handleChange();
     },
   },
-  methods: {
-    handleChange() {
-      const focusRef = this.$refs?.focusRef;
-      if (!focusRef) return;
-      const $el = focusRef.$el;
-      if ($el?.querySelector("input"))
-        $el.querySelector("input").style.borderColor = "";
-    },
-  },
+  methods: {},
 };
 </script>
 

@@ -34,6 +34,7 @@
 import FormItem from "./FormItem";
 import ButtonGroup from "@/components/Form/custom/ButtonGroup.vue";
 export default {
+  emits: ["update:formData"],
   name: "FormComponent",
   components: {
     FormItem,
@@ -51,10 +52,13 @@ export default {
       type: Object,
       default: () => null,
     },
+    formData: {
+      type: Object,
+      default: () => {},
+    },
   },
   data() {
     return {
-      formData: {},
       rules: {},
       typeEnumeration: {
         array: "array",
@@ -65,6 +69,14 @@ export default {
     };
   },
   computed: {
+    formDataValue: {
+      get() {
+        return this.formData;
+      },
+      set(newValue) {
+        this.$emit("update:formData", newValue);
+      },
+    },
     schemasMap() {
       return (
         this.schemas?.map?.((schema) => {
@@ -112,8 +124,6 @@ export default {
     generateFormData() {
       const formData = {};
       const rules = {};
-      console.log(`this.schemas:`, this.schemas);
-
       this.schemas.forEach((schema) => {
         formData[schema.prop] =
           "defaultValue" in schema
@@ -131,7 +141,7 @@ export default {
           }
         }
       });
-      this.formData = formData;
+      this.formDataValue = formData;
       this.rules = rules;
     },
     ObjectType(type) {
@@ -154,7 +164,7 @@ export default {
     submitForm() {
       this.$refs.elForm.validate((valid) => {
         if (valid) {
-          this?.afterSubmit?.({ ...this.formData });
+          this?.afterSubmit?.({ ...this.formDataValue });
           if (this.resetOnSubmit) {
             console.log("resetOnSubmit");
             this.resetForm();

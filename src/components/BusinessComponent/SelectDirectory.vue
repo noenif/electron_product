@@ -1,9 +1,8 @@
 <template>
-  <div id="Home"></div>
+  <div id="SelectDirectory"></div>
 </template>
 
 <script setup lang="ts">
-import generateSQLTable from "@/components/BusinessComponent/generateSQLTable.vue";
 import {
   reactive,
   ref,

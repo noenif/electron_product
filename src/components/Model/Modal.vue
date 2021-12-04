@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <a-modal
-      :title="attrs.title || '请取名'"
-      v-model:visible="visible"
-      ok-text="确认"
-      cancel-text="取消"
-      @ok="hideModal"
-      @cancel="hideModal"
-    >
-      <slot></slot>
-    </a-modal>
-  </div>
+  <a-modal
+    :title="attrs.title || '请取名'"
+    v-model:visible="visible"
+    ok-text="确认"
+    cancel-text="取消"
+    @ok="handleConfirm"
+    @cancel="hideModal"
+  >
+    <slot></slot>
+  </a-modal>
 </template>
 <script lang="ts" setup>
 import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
@@ -24,7 +22,8 @@ import {
   defineEmits,
 } from "vue";
 import { Modal } from "ant-design-vue";
-const attrs = useAttrs();
+import { handleConfig } from "@/utils/navUtils";
+const attrs: any = useAttrs();
 const visible = ref<boolean>(false);
 const props = defineProps({
   visibleFlag: Boolean,
@@ -38,13 +37,19 @@ watch(
   }
 );
 
+const handleConfirm = () => {
+  attrs.handleConfirm().then((res) => {
+    emit("update:visibleFlag", false);
+  });
+};
+
 const hideModal = () => {
   emit("update:visibleFlag", false);
 };
 </script>
 <style lang="scss">
-.ant-modal-title {
-  font-weight: 700;
-  padding: 10px;
+:deep(.ant-modal-title) {
+  font-weight: 700 !important;
+  padding: 10px !important;
 }
 </style>
